@@ -1,0 +1,36 @@
+﻿@using AppVendas.Models;
+@model IEnumerable<ProdutoModel>
+
+@{
+    ViewData["Title"] = "Produtos";
+    Layout = "_Layout";
+}
+
+<a asp-action="AdicionarProduto" class="btn btn-sm btn-primary">Novo Produto</a>
+<a asp-action="ConsultarProduto" class="btn btn-sm btn-secondary">Consultar Produto</a>
+
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+        <tr>
+            <th>Codigo</th><th>Nome</th><th>Preço</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ProdutoModel produto in Model)
+        {
+            <tr>
+                <td>@produto.Codigo</td>
+                <td>@produto.Descricao</td>
+                <td>@produto.Preco</td>
+                <td>
+                    <a asp-action="AtualizarProduto" asp-route-id="@produto.Codigo"></a>
+                </td>
+                <td>
+                    <form asp-action="ExclueProduto" method="post">
+                        <input type="hidden" value="@produto.Codigo" name="Codigo" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
